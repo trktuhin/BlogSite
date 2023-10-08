@@ -1,0 +1,11 @@
+﻿@using Blazored.Toast.Configuration;
+@inherits LayoutComponentBase
+<div class="page">
+    <main>
+        <TopBar />
+        <div>
+            @Body
+        </div>
+        <BlazoredToasts Position="ToastPosition.BottomRight" Timeout="4" />
+    </main>
+</div>

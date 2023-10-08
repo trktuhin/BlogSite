@@ -1,0 +1,94 @@
+﻿@inherits SignInModalBase
+
+<div class="modal fade" id="signInModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-pink">
+                <h5 class="modal-title">@(IsSignUpMode ? "Sign Up" : "Sign In")</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="post">
+                <div class="modal-body row g-2">
+                    @if (string.IsNullOrEmpty(ErrorMessage) == false)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @ErrorMessage
+                        </div>
+                    }
+                    
+                    @if (IsSignUpMode)
+                    {
+                        <div class="col-12">
+                            <label>First Name<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                <input type="text" required @bind-value="FirstName" class="form-control" placeholder="Enter First Name">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label>Last Name<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                <input type="text" required @bind-value="LastName" class="form-control" placeholder="Enter Last Name">
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-12">
+                        <label>Email<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-envelope-fill"></i></div>
+                            <input type="email" required @bind-value="Email" class="form-control" placeholder="Enter Email">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label>Password<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
+                            <input type="password" required @bind-value="Password" class="form-control" placeholder="Enter Password">
+                        </div>
+                    </div>
+
+                    @if (IsSignUpMode)
+                    {
+                        <div class="col-12">
+                            <label>Confirm Password<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
+                                <input type="password" @bind-value="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-sm-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                            <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <a href="javascript:void(0)" class="float-end text-primary" @onclick="ToggleSignUpMode">@(IsSignUpMode ? "Already have account?" : "Don't have account?")</a>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn bg-pink" @onclick="SubmitForm" disabled="@IsLoading">
+                        @if (IsLoading)
+                        {
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span> Loading...</span>
+                        }
+                        else
+                        {
+                            <span>Submit</span>
+                        }
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

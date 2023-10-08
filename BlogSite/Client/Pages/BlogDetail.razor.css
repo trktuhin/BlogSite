@@ -1,0 +1,98 @@
+﻿.blg_overly {
+    background-color: rgba(0,0,0,0.75);
+    color: white;
+    padding: 18rem 0 10rem;
+    width:100%;
+    overflow-x: hidden;
+}
+
+.blog-Detail {
+    background-color: white;
+    padding: 20px 0;
+    overflow-x: hidden;
+}
+
+.blog-title {
+    font-size: 35px;
+    padding: 20px 0;
+}
+.blog-subtitle {
+    font-size: 25px;
+}
+.blog-publish{
+    font-size: 20px;
+    margin-top: 20px;
+}
+.blog-author{
+    border-left: 2px solid white;
+    padding-left: 10px;
+}
+.related-blog{
+    padding-top: 20px;
+}
+.card-body {
+    height: 142px;
+}
+.card {
+    cursor: pointer;
+}
+.commnt_box {
+    background: #f7f7f7;
+    margin: 30px 0;
+    border-radius: 5px;
+}
+.commnt_box textarea {
+    width: 95%;
+    border: none;
+    outline: none;
+    height: 100%;
+    background: transparent;
+    resize: none;
+    font-size: 18px;
+    padding: 20px 0 0 20px;
+}
+.commnt_box textarea::placeholder {
+    font-size: 20px;
+}
+.commnt_box textarea::-webkit-scrollbar {
+    display: none;
+}
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: transparent;
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+}
+.comment-content {
+    display: inline-block;
+    background-color: #f7f7f7;
+    padding: 5px 15px;
+    border-radius: 25px;
+    margin-bottom: 2px;
+    font-size: 16px;
+    margin-top: 7px;
+}
+.comment-avatar {
+    font-size: 40px;
+}
+.comment-user {
+    font-size: 14px;
+}
+.comment-time {
+    font-size: 12px;
+    font-weight: 100;
+    color: gray;
+}
+.comment-button {
+    font-size: 20px;
+    margin-left: auto;
+    padding: 0 30px;
+    background: none;
+    color: darkgray;
+    border: none;
+    outline: none;
+}
+.comment-button:hover {
+    color: black;
+}

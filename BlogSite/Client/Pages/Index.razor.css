@@ -1,0 +1,85 @@
+﻿.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Adjust the height as needed */
+    background-image: url('images/HomePageBanner.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    z-index:0;
+}
+
+/* Add a black overlay using pseudo-element */
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha (4th value) for the opacity */
+}
+
+.page-content {
+    position: relative;
+    width: 95%;
+    z-index: 5;
+    margin-top: 60vh;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.search-box {
+    width: 70%;
+    font-size: 18px;
+    padding: 15px 20px;
+    background: #80808063;
+    color: white;
+    font-weight: 400;
+    border-radius: 8px;
+    border: 1px solid white;
+    outline: none;
+}
+
+.search-box:focus-visible,.search-box:active {
+    outline: none;
+}
+
+.search-btn {
+    font-size: 18px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color: rgba(253, 177, 26, 0.95);
+    border: 1px solid white;
+}
+
+.search-btn:hover {
+    background-color: #fdb21a;
+    border: 1px solid #fdb21a;
+    color: white;
+}
+
+.btn-load-more {
+    padding: 15px 25px;
+    font-size: 14px;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 25px;
+}
+
+.btn-load-more:hover {
+    background-color: white;
+}
+
+.card-body {
+    height: 142px;
+}
+
+.card {
+    cursor: pointer;
+}
+

@@ -1,0 +1,57 @@
+﻿@page "/dashboard"
+@inherits DashboardBase
+@layout AuthorizedLayout
+@using BlogSite.Shared.ViewModels
+
+<div class="card">
+    <div class="card-header">
+        Dashboard
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Welcome @UserViewModel?.FirstName @UserViewModel?.LastName (@UserViewModel?.Email)</h5>
+        <p class="card-text">Here are few chart examples that you can use</p>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <ApexChart TItem="DemoChartViewModel"
+                       Title="Blog Summary (Donut chart)">
+
+                <ApexPointSeries TItem="DemoChartViewModel"
+                                 Items="SampleData"
+                                 SeriesType="SeriesType.Donut"
+                                 Name="Total Comments"
+                                 XValue="@(e => e.PropertyName)"
+                                 YValue="@(e => e.PropertyValue)"
+                                 OrderByDescending="e=>e.Y" />
+            </ApexChart>
+        </div>
+        <div class="col-md-4">
+            <ApexChart TItem="DemoChartViewModel"
+                       Title="Blog Summary (Bar chart)">
+
+                <ApexPointSeries TItem="DemoChartViewModel"
+                                 Items="SampleData"
+                                 Name="Total Comments"
+                                 XValue="@(e => e.PropertyName)"
+                                 YValue="@(e => e.PropertyValue)"
+                                 SeriesType="SeriesType.Bar"
+                                 Color="#005ba3"
+                                 PointColor="e=> GetColor(e)" />
+            </ApexChart>
+        </div>
+        <div class="col-md-4">
+            <ApexChart TItem="DemoChartViewModel"
+                       Title="Blog Summary (Pie chart)">
+
+                <ApexPointSeries TItem="DemoChartViewModel"
+                                 Items="SampleData"
+                                 Name="Total Comments"
+                                 SeriesType="SeriesType.Pie"
+                                 XValue="@(e => e.PropertyName)"
+                                 YValue="@(e => e.PropertyValue)"
+                                 OrderByDescending="e=>e.Y" />
+            </ApexChart>
+        </div>
+    </div>
+</div>

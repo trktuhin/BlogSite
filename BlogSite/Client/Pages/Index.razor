@@ -1,0 +1,58 @@
+﻿@page "/"
+@using BlogSite.Client.Utility
+@inherits IndexBase
+
+<div class="banner">
+</div>
+
+<div class="page-content">
+    <h2 class="main-heading">Welcome To Blog Site</h2>
+    <div class="row">
+        <div class="col-lg-7 m-auto d-flex justify-content-center">
+            <input @bind-value="@PageParams.SearchText" class="search-box"/>
+            <button type="button" class="search-btn" onclick="@(async() => await FetchBlogs())"><i class="bi bi-search"></i> Search</button>
+        </div>
+    </div>
+    <h2 class="sub-heading">Read Others and Write Yours</h2>
+    <div class="row g-3 px-2 bg-transparent mt-3">
+        @if(FetchingBlogs == false)
+        {
+            <InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="(e) => LoadMore()">
+                @foreach(var item in FilteredBlogs)
+                {
+                    <div class="bg-transparent col-lg-3 col-md-4" @key="item.Id">
+                        <div class="card" onclick="@(() => NavManager.NavigateTo($"/blogs/{item.Slug}"))">
+                            <img src="/images/thumbnail-@item.BannerImageUrl" onerror="this.src='/images/no-image.jpg'" class="img-thumbnail" alt="thumbnail">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title.TruncateWithEllipsis(25)</h5>
+                                <p class="card-text">@item.SubTitle?.TruncateWithEllipsis(25)</p>
+                                <a href="/blogs/@item.Slug" class="btn bg-pink">Read Blog</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <span id="observerTarget"></span>
+            </InfiniteScroll>
+        }
+        else
+        {
+            foreach (int i in Enumerable.Range(1, 12))
+            {
+                <div class="bg-transparent col-lg-3 col-md-4">
+                    <div class="card loading">
+                        <div class="img-container">
+                            <div class="box"></div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">&nbsp;</h5>
+                            <p class="card-text">&nbsp;</p>
+                            <a href="#" class="btn btn-loading">&nbsp;</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+

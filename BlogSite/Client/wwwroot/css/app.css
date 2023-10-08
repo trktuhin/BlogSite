@@ -1,0 +1,72 @@
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #595959;
+}
+.bg-pink {
+    background-color: #cc3b86;
+    color: white;
+}
+.bg-pink:hover {
+    background-color: #f547a1;
+}
+.validation-message{
+    font-size: 14px;
+    color: red;
+}
+.ql-editor {
+    min-height: 400px;
+}
+.sr-only{
+    display:none;
+}
+.main-heading {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 5.5rem;
+    text-align: center;
+    -webkit-text-stroke: 2px white;
+    -webkit-text-fill-color: transparent;
+    color: white;
+}
+
+.sub-heading {
+    color: #cc3b86;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 800;
+}
+.img-container {
+    display: flex;
+}
+.box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    aspect-ratio: 3/2;
+}
+
+.btn-loading {
+    min-width: 150px;
+}
+
+.box, .loading h5, .loading p, .btn-loading {
+    background: #eee;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
+
+
+.img-thumbnail {
+    aspect-ratio: 3/2;
+}
+
+

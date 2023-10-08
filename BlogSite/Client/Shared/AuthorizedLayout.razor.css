@@ -1,0 +1,17 @@
+﻿#sidebar {
+    width: 4.5rem;
+    height: 100vh;
+}
+#sidebar-content {
+    width: calc(100% - 4.5rem);
+    padding: 20px;
+    background-color: white;
+}
+.nav-link {
+    color: #0d6efd;
+}
+.bi {
+    vertical-align: -.125em;
+    pointer-events: none;
+    fill: currentColor;
+}

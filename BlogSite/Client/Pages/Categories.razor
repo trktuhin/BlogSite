@@ -1,0 +1,104 @@
+﻿@page "/categories"
+@inherits CategoriesBase
+@layout AuthorizedLayout
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <span>
+            Categories
+        </span>
+        <span>
+            <AuthorizeView Roles="admin">
+                <Authorized>
+                    <button class="btn btn-sm btn-primary" onclick="@(() => OpenDetailModal(0))"><i class="bi bi-plus"></i> Create New</button>
+                </Authorized>
+            </AuthorizeView>
+        </span>
+    </div>
+    <div class="card-body">
+        @if (FetchingCategory)
+        {
+            <Loader />
+        }
+        else if (CategoryList != null && CategoryList.Count > 0)
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in CategoryList)
+                    {
+                        <tr>
+                            <th>@item.Title</th>
+                            <td>@item.Created.ToString("dd MMM yyyy")</td>
+                            <td>@item.LastUpdated.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <AuthorizeView Roles="admin">
+                                    <Authorized>
+                                        <button type="button" class="btn btn-sm btn-warning" onclick="@(() => OpenDetailModal(item.Id))"><i class="bi bi-pencil"></i> Edit</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="@(() => OpenDeleteModal(item.Id))"><i class="bi bi-trash"></i> Delete</button>
+                                    </Authorized>
+                                </AuthorizeView>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                No items found
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="categoryDetailModal" tabindex="-1" aria-labelledby="categoryDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <EditForm Model="@SelectedCategoryVM" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@DetailModalTitle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="BlogTitle">Title</label>
+                        <InputText @bind-Value="@SelectedCategoryVM.Title" placeholder="Enter Title" id="BlogTitle" type="text" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => SelectedCategoryVM.Title)" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+<div class="modal fade" id="categoryDeleteModal" tabindex="-1" aria-labelledby="categoryDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-light">
+                <h5 class="modal-title" id="exampleModalLabel">Are you Sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @SelectedCategoryVM.Title will be deleted permanently.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="@(() => HandleDelete())">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

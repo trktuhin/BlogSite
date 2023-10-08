@@ -1,0 +1,108 @@
+﻿@page "/blogs/{BlogSlug}"
+@using BlogSite.Client.Utility
+@inherits BlogDetailBase
+
+<div style="background-image: url('/images/@ViewModel.BannerImageUrl');background-repeat: no-repeat;background-size: cover;background-position: center;">
+    <div class="blg_overly">
+        <div class="row">
+            <div class="col-lg-9 text-center m-auto">
+                @if (FetchingDetails)
+                {
+                    <Loader />
+                }
+                else
+                {
+                    <h2 class="main-heading">@ViewModel.Title</h2>
+                    <h2 class="sub-heading">@ViewModel.SubTitle</h2>
+                    <div class="d-flex justify-content-center gap-2 blog-publish">
+                        <span><i class="bi bi-calendar3"></i> @ViewModel.Created.GetValueOrDefault().ToString("dd MMM yyyy hh:mm tt")</span>
+                        <span class="blog-author"><i class="bi bi-vector-pen"></i> @ViewModel.CreatedBy?.FirstName @ViewModel.CreatedBy?.LastName</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (FetchingDetails == false)
+{
+    <div class="blog-Detail">
+        <div class="row">
+            <div class="col-lg-9 m-auto">
+                <div>
+                    @((MarkupString)ViewModel.Content)
+                </div>
+                <div class="related-blog">
+                    <h2>Related Blogs</h2>
+                    <div class="row">
+                        @if (FetchingRelatedBlogs)
+                        {
+                            foreach (int i in Enumerable.Range(1, 4))
+                            {
+                                <div class="bg-transparent col-lg-3 col-md-4">
+                                    <div class="card loading">
+                                        <div class="img-container">
+                                            <div class="box"></div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">&nbsp;</h5>
+                                            <p class="card-text">&nbsp;</p>
+                                            <a href="#" class="btn btn-loading">&nbsp;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in RelatedBlogs)
+                            {
+                                <div class="bg-transparent col-lg-3 col-md-4" @key="item.Id">
+                                    <div class="card" onclick="@(() => NavManager.NavigateTo($"/blogs/{item.Slug}",true))">
+                                        <img src="/images/thumbnail-@item.BannerImageUrl" onerror="this.src='/images/no-image.jpg'" class="img-thumbnail" alt="thumbnail">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.Title.TruncateWithEllipsis(25)</h5>
+                                            <p class="card-text">@item.SubTitle?.TruncateWithEllipsis(25)</p>
+                                            <a href="/blogs/@item.Slug" class="btn bg-pink">Read Blog</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="mt-2">
+                        <h5>Comments <span id="comment-count">@BlogComments.Count</span></h5>
+                        <div class="commnt_box form-group d-flex">
+                            <textarea @bind="CommentInputText" class="form-control" placeholder="Write a comment..."></textarea>
+                            <button type="button" @onclick="SubmitComment" class="comment-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div>
+                            @foreach(var item in BlogComments)
+                            {
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div class="comment-avatar">
+                                        <i class="bi bi-person-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <span class="comment-content">
+                                            @item.Content
+                                        </span>
+                                        <div class="ms-1">
+                                            <span class="comment-user">@(item.CommentedBy==null ?"Anonymous User": $"{item.CommentedBy.FirstName} {item.CommentedBy.LastName}")</span>
+                                            <span class="comment-time">@item.Created.GetValueOrDefault().ToRelativeTime()</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
